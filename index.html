@@ -8,69 +8,44 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
 :root{
-  --bg:#F5F2ED;
-  --surface:#FFFFFF;
-  --surface-alt:#FAF8F5;
-  --coklat-tua:#2B1D14;
-  --coklat:#5C3A21;
-  --coklat-muda:#8B6F56;
-  --krem:#EDE5D8;
-  --border:#E0D5C4;
-  --text:#2B1D14;
-  --text-2:#5C3A21;
-  --text-3:#8B6F56;
-  --hijau:#1A7F4B;
-  --hijau-bg:#E8F5EE;
-  --merah:#C53030;
-  --merah-bg:#FDE8E8;
+  --bg:#F5F2ED;--surface:#FFFFFF;--surface-alt:#FAF8F5;
+  --coklat-tua:#2B1D14;--coklat:#5C3A21;--coklat-muda:#8B6F56;
+  --krem:#EDE5D8;--border:#E0D5C4;
+  --text:#2B1D14;--text-2:#5C3A21;--text-3:#8B6F56;
+  --hijau:#1A7F4B;--hijau-bg:#E8F5EE;
+  --merah:#C53030;--merah-bg:#FDE8E8;
   --kuning:#B7791F;
   --shadow-sm:0 1px 2px rgba(43,29,20,.04);
   --shadow:0 2px 8px rgba(43,29,20,.06);
   --shadow-md:0 4px 16px rgba(43,29,20,.08);
   --shadow-lg:0 12px 32px rgba(43,29,20,.12);
-  --radius:10px;
-  --radius-sm:6px;
-  --radius-xs:4px;
+  --radius:10px;--radius-sm:6px;--radius-xs:4px;
   --trans:all .2s cubic-bezier(.4,0,.2,1);
 }
 [data-theme="dark"]{
-  --bg:#0F0B08;
-  --surface:#1A1410;
-  --surface-alt:#201812;
-  --coklat-tua:#F5E9D7;
-  --coklat:#D4A574;
-  --coklat-muda:#A67B5B;
-  --krem:#2B1D14;
-  --border:#3D2E22;
-  --text:#F5E9D7;
-  --text-2:#D4A574;
-  --text-3:#A67B5B;
-  --hijau:#4ADE80;
-  --hijau-bg:rgba(74,222,128,.1);
-  --merah:#F87171;
-  --merah-bg:rgba(248,113,113,.1);
+  --bg:#0F0B08;--surface:#1A1410;--surface-alt:#201812;
+  --coklat-tua:#F5E9D7;--coklat:#D4A574;--coklat-muda:#A67B5B;
+  --krem:#2B1D14;--border:#3D2E22;
+  --text:#F5E9D7;--text-2:#D4A574;--text-3:#A67B5B;
+  --hijau:#4ADE80;--hijau-bg:rgba(74,222,128,.1);
+  --merah:#F87171;--merah-bg:rgba(248,113,113,.1);
 }
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
 body{
   font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;
-  background:var(--bg);
-  color:var(--text);
-  line-height:1.5;
-  min-height:100vh;
+  background:var(--bg);color:var(--text);
+  line-height:1.5;min-height:100vh;
   transition:background .3s,color .3s;
-  font-size:14px;
-  -webkit-font-smoothing:antialiased;
+  font-size:14px;-webkit-font-smoothing:antialiased;
 }
 button{font-family:inherit;cursor:pointer;border:none;background:none}
 input,select,textarea{font-family:inherit;font-size:inherit}
 
-/* ============ HEADER ============ */
 .header{
   background:var(--surface);
   border-bottom:1px solid var(--border);
-  padding:14px 24px;
-  position:sticky;top:0;z-index:100;
+  padding:14px 24px;position:sticky;top:0;z-index:100;
   backdrop-filter:blur(12px);
   background:rgba(255,255,255,.85);
 }
@@ -90,15 +65,12 @@ input,select,textarea{font-family:inherit;font-size:inherit}
 .brand-text p{font-size:10px;color:var(--text-3);font-weight:500;letter-spacing:.3px;text-transform:uppercase}
 
 .search-wrap{
-  flex:1;min-width:280px;
-  display:flex;gap:8px;
-  background:var(--surface-alt);
-  padding:6px;border-radius:var(--radius);
-  border:1px solid var(--border);
+  flex:1;min-width:280px;display:flex;gap:8px;
+  background:var(--surface-alt);padding:6px;
+  border-radius:var(--radius);border:1px solid var(--border);
 }
 .search-wrap input{
-  flex:1;padding:9px 14px;
-  background:transparent;color:var(--text);
+  flex:1;padding:9px 14px;background:transparent;color:var(--text);
   border:none;font-size:13px;outline:none;font-weight:500;
 }
 .search-wrap input::placeholder{color:var(--text-3)}
@@ -126,19 +98,15 @@ input,select,textarea{font-family:inherit;font-size:inherit}
 .icon-btn{
   width:36px;height:36px;border-radius:var(--radius-sm);
   background:var(--surface-alt);border:1px solid var(--border);
-  color:var(--text-2);
-  display:flex;align-items:center;justify-content:center;
+  color:var(--text-2);display:flex;align-items:center;justify-content:center;
   transition:var(--trans);
 }
 .icon-btn:hover{background:var(--krem);border-color:var(--coklat-muda)}
 .icon-btn svg{width:16px;height:16px}
 
-/* ============ TABS ============ */
 .tabs{
-  max-width:1600px;margin:0 auto;
-  padding:20px 24px 0;
-  display:flex;gap:4px;overflow-x:auto;
-  scrollbar-width:none;
+  max-width:1600px;margin:0 auto;padding:20px 24px 0;
+  display:flex;gap:4px;overflow-x:auto;scrollbar-width:none;
   border-bottom:1px solid var(--border);
 }
 .tabs::-webkit-scrollbar{display:none}
@@ -146,15 +114,13 @@ input,select,textarea{font-family:inherit;font-size:inherit}
   padding:10px 16px;background:transparent;
   color:var(--text-3);font-weight:600;font-size:13px;
   white-space:nowrap;transition:var(--trans);
-  border-bottom:2px solid transparent;
-  margin-bottom:-1px;
+  border-bottom:2px solid transparent;margin-bottom:-1px;
   display:flex;align-items:center;gap:8px;
 }
 .tab:hover{color:var(--text-2)}
 .tab.active{color:var(--coklat-tua);border-bottom-color:var(--coklat-tua)}
-.tab .tab-icon{width:14px;height:14px;display:inline-block;vertical-align:middle}
+.tab .tab-icon{width:14px;height:14px}
 
-/* ============ LAYOUT ============ */
 .main{max-width:1600px;margin:0 auto;padding:20px 24px 100px}
 .view{display:none;animation:fadeIn .3s ease-out}
 .view.active{display:block}
@@ -163,26 +129,20 @@ input,select,textarea{font-family:inherit;font-size:inherit}
 .grid{display:grid;grid-template-columns:1fr 380px;gap:20px}
 
 .card{
-  background:var(--surface);
-  border:1px solid var(--border);
-  border-radius:var(--radius);
-  padding:20px;
-  transition:var(--trans);
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:var(--radius);padding:20px;transition:var(--trans);
 }
 .card-header{
   display:flex;align-items:center;justify-content:space-between;
-  padding-bottom:14px;margin-bottom:14px;
-  border-bottom:1px solid var(--border);
+  padding-bottom:14px;margin-bottom:14px;border-bottom:1px solid var(--border);
 }
 .card-title{
-  font-size:13px;font-weight:700;color:var(--text);
-  letter-spacing:-.2px;
+  font-size:13px;font-weight:700;color:var(--text);letter-spacing:-.2px;
   display:flex;align-items:center;gap:8px;
 }
 .card-title .title-dot{width:4px;height:14px;background:var(--coklat-tua);border-radius:2px}
 .card-subtitle{font-size:11px;color:var(--text-3);font-weight:500}
 
-/* ============ BUTTONS ============ */
 .btn{
   padding:8px 14px;background:var(--coklat-tua);color:#fff;
   border-radius:var(--radius-sm);font-weight:600;font-size:12px;
@@ -191,15 +151,11 @@ input,select,textarea{font-family:inherit;font-size:inherit}
 .btn:hover{background:var(--coklat)}
 .btn-secondary{background:var(--surface-alt);color:var(--text-2);border:1px solid var(--border)}
 .btn-secondary:hover{background:var(--krem);border-color:var(--coklat-muda)}
-.btn-danger{background:var(--merah)}
-.btn-danger:hover{background:#9B2727}
 
-/* ============ CHART TOOLBAR ============ */
 .chart-toolbar{
-  display:flex;gap:6px;flex-wrap:wrap;
-  padding:10px;background:var(--surface-alt);
-  border-radius:var(--radius-sm);border:1px solid var(--border);
-  margin-bottom:14px;
+  display:flex;gap:6px;flex-wrap:wrap;padding:10px;
+  background:var(--surface-alt);border-radius:var(--radius-sm);
+  border:1px solid var(--border);margin-bottom:14px;
 }
 .tool-btn{
   padding:7px 12px;background:transparent;
@@ -211,7 +167,6 @@ input,select,textarea{font-family:inherit;font-size:inherit}
 .tool-btn.active{background:var(--coklat-tua);color:#fff;border-color:var(--coklat-tua)}
 .tool-sep{width:1px;background:var(--border);margin:0 4px}
 
-/* ============ CHART CONTAINER ============ */
 .chart-card{padding:16px;min-height:620px}
 .chart-frame{
   width:100%;height:580px;border:none;
@@ -229,44 +184,52 @@ input,select,textarea{font-family:inherit;font-size:inherit}
 @keyframes spin{to{transform:rotate(360deg)}}
 .chart-loading p{font-size:12px;font-weight:500}
 
-/* ============ QUICK STATS ============ */
-.quick-stats{
-  display:grid;grid-template-columns:repeat(6,1fr);
-  gap:1px;padding:14px;background:var(--surface-alt);
-  border-radius:var(--radius-sm);border:1px solid var(--border);
-  margin-bottom:14px;
+/* === FIXED: SYMBOL INFO WIDGET === */
+.symbol-info-wrap{
+  margin-bottom:14px;border-radius:var(--radius-sm);
+  overflow:hidden;border:1px solid var(--border);
+  background:var(--surface-alt);
 }
-.stat-item{text-align:center;padding:4px}
-.stat-label{font-size:10px;color:var(--text-3);font-weight:600;letter-spacing:.5px;text-transform:uppercase;margin-bottom:4px}
-.stat-value{font-family:'JetBrains Mono';font-size:13px;font-weight:600;color:var(--text)}
+.symbol-info-wrap .tradingview-widget-container{
+  padding:0 !important;
+}
+.symbol-info-loading{
+  padding:16px;text-align:center;color:var(--text-3);
+  font-size:12px;background:var(--surface-alt);
+  display:flex;align-items:center;justify-content:center;gap:10px;
+}
+.symbol-info-loading .mini-spinner{
+  width:16px;height:16px;border:2px solid var(--border);
+  border-top-color:var(--coklat-tua);border-radius:50%;
+  animation:spin .7s linear infinite;
+}
+/* Force widget agar compact & match theme */
+.symbol-info-wrap iframe,
+.symbol-info-wrap .tradingview-widget-container__widget{
+  border-radius:var(--radius-sm);
+}
+
 .up{color:var(--hijau)}
 .down{color:var(--merah)}
-.up-bg{background:var(--hijau-bg);color:var(--hijau)}
-.down-bg{background:var(--merah-bg);color:var(--merah)}
 
-/* ============ SIDEBAR TABS ============ */
 .sidebar-tabs{
   display:flex;gap:2px;background:var(--surface-alt);
   padding:4px;border-radius:var(--radius-sm);
   border:1px solid var(--border);margin-bottom:14px;
 }
 .sidebar-tab{
-  flex:1;padding:8px;background:transparent;
-  border-radius:var(--radius-xs);
-  font-size:12px;font-weight:600;color:var(--text-3);
-  transition:var(--trans);
+  flex:1;padding:8px;background:transparent;border-radius:var(--radius-xs);
+  font-size:12px;font-weight:600;color:var(--text-3);transition:var(--trans);
 }
 .sidebar-tab:hover{color:var(--text-2)}
 .sidebar-tab.active{background:var(--surface);color:var(--coklat-tua);box-shadow:var(--shadow-sm)}
 .sidebar-panel{display:none}
 .sidebar-panel.active{display:block;animation:fadeIn .25s}
 
-/* ============ WATCHLIST ============ */
 .watchlist-item{
   display:flex;justify-content:space-between;align-items:center;
-  padding:12px;margin-bottom:6px;
-  background:var(--surface-alt);border-radius:var(--radius-sm);
-  cursor:pointer;transition:var(--trans);
+  padding:12px;margin-bottom:6px;background:var(--surface-alt);
+  border-radius:var(--radius-sm);cursor:pointer;transition:var(--trans);
   border:1px solid transparent;
 }
 .watchlist-item:hover{border-color:var(--border);background:var(--krem)}
@@ -281,8 +244,7 @@ input,select,textarea{font-family:inherit;font-size:inherit}
 .wl-btn{
   width:24px;height:24px;border-radius:var(--radius-xs);
   background:transparent;color:var(--text-3);
-  display:flex;align-items:center;justify-content:center;
-  transition:var(--trans);
+  display:flex;align-items:center;justify-content:center;transition:var(--trans);
 }
 .wl-btn:hover{background:var(--merah-bg);color:var(--merah)}
 .wl-btn svg{width:12px;height:12px}
@@ -291,18 +253,15 @@ input,select,textarea{font-family:inherit;font-size:inherit}
 .add-watchlist input{
   flex:1;padding:9px 12px;border:1px solid var(--border);
   border-radius:var(--radius-sm);font-size:12px;font-weight:500;
-  background:var(--surface);color:var(--text);outline:none;
-  transition:var(--trans);
+  background:var(--surface);color:var(--text);outline:none;transition:var(--trans);
 }
 .add-watchlist input:focus{border-color:var(--coklat-tua)}
 .add-watchlist button{
   padding:9px 14px;background:var(--coklat-tua);color:#fff;
-  border-radius:var(--radius-sm);font-size:12px;font-weight:600;
-  transition:var(--trans);
+  border-radius:var(--radius-sm);font-size:12px;font-weight:600;transition:var(--trans);
 }
 .add-watchlist button:hover{background:var(--coklat)}
 
-/* ============ TRADE PANEL ============ */
 .trade-panel{
   background:var(--surface-alt);padding:16px;
   border-radius:var(--radius-sm);border:1px solid var(--border);
@@ -312,66 +271,56 @@ input,select,textarea{font-family:inherit;font-size:inherit}
 .trade-row input{
   flex:1;padding:9px 11px;border:1px solid var(--border);
   border-radius:var(--radius-xs);font-family:'JetBrains Mono';font-size:13px;
-  background:var(--surface);color:var(--text);outline:none;
-  transition:var(--trans);font-weight:500;
+  background:var(--surface);color:var(--text);outline:none;transition:var(--trans);font-weight:500;
 }
 .trade-row input:focus{border-color:var(--coklat-tua)}
 .trade-summary{
   display:flex;justify-content:space-between;align-items:center;
   padding:10px 12px;background:var(--surface);
-  border-radius:var(--radius-xs);border:1px solid var(--border);
-  margin-bottom:10px;
+  border-radius:var(--radius-xs);border:1px solid var(--border);margin-bottom:10px;
 }
 .trade-summary span{font-size:11px;color:var(--text-3);font-weight:600;letter-spacing:.3px}
 .trade-summary strong{font-family:'JetBrains Mono';font-size:13px;font-weight:600}
 .trade-btns{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}
 .trade-btn{
   padding:11px;border:none;border-radius:var(--radius-sm);
-  font-weight:700;font-size:12px;color:#fff;
-  transition:var(--trans);letter-spacing:.5px;text-transform:uppercase;
+  font-weight:700;font-size:12px;color:#fff;transition:var(--trans);
+  letter-spacing:.5px;text-transform:uppercase;
 }
 .trade-btn.buy{background:var(--hijau)}
 .trade-btn.buy:hover{background:#166B3F}
 .trade-btn.sell{background:var(--merah)}
 .trade-btn.sell:hover{background:#9B2727}
-.trade-btn:disabled{opacity:.5;cursor:not-allowed}
 
 .tip-box{
-  margin-top:12px;padding:10px 12px;
-  background:var(--surface-alt);border-left:3px solid var(--coklat-tua);
-  border-radius:var(--radius-xs);
+  margin-top:12px;padding:10px 12px;background:var(--surface-alt);
+  border-left:3px solid var(--coklat-tua);border-radius:var(--radius-xs);
   font-size:11px;color:var(--text-2);line-height:1.6;
 }
 .tip-box strong{color:var(--text);font-weight:700}
 
-/* ============ FUNDAMENTAL ============ */
 .fund-item{
   padding:12px;background:var(--surface-alt);
-  border-radius:var(--radius-sm);margin-bottom:8px;
-  border:1px solid var(--border);
+  border-radius:var(--radius-sm);margin-bottom:8px;border:1px solid var(--border);
 }
 .fund-item .fund-label{font-size:10px;color:var(--text-3);font-weight:600;letter-spacing:.5px;text-transform:uppercase;margin-bottom:4px}
 .fund-item .fund-value{font-family:'JetBrains Mono';font-size:15px;font-weight:600;color:var(--text)}
 
 .info-box{
-  margin-top:12px;padding:12px;
-  background:var(--surface-alt);border-radius:var(--radius-sm);
-  border:1px solid var(--border);
+  margin-top:12px;padding:12px;background:var(--surface-alt);
+  border-radius:var(--radius-sm);border:1px solid var(--border);
   font-size:11px;color:var(--text-2);line-height:1.6;
 }
 .info-box strong{color:var(--text);font-weight:700}
 
-/* ============ PORTFOLIO ============ */
 .portfolio-summary{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-bottom:20px}
 .port-card{
   background:var(--surface-alt);padding:16px;
-  border-radius:var(--radius-sm);border:1px solid var(--border);
-  transition:var(--trans);
+  border-radius:var(--radius-sm);border:1px solid var(--border);transition:var(--trans);
 }
 .port-card:hover{border-color:var(--coklat-muda)}
 .port-card.highlight{
-  background:var(--coklat-tua);color:#fff;border:none;
-  box-shadow:var(--shadow-md);
+  background:var(--coklat-tua);color:#fff;border:none;box-shadow:var(--shadow-md);
 }
 .port-card.highlight .port-label{color:rgba(255,255,255,.7)}
 .port-card.highlight .port-sub{color:rgba(255,255,255,.85)}
@@ -381,8 +330,7 @@ input,select,textarea{font-family:inherit;font-size:inherit}
 
 .section-title{
   font-size:13px;font-weight:700;color:var(--text);
-  letter-spacing:-.2px;margin:20px 0 12px;
-  display:flex;align-items:center;gap:8px;
+  letter-spacing:-.2px;margin:20px 0 12px;display:flex;align-items:center;gap:8px;
 }
 .section-title::before{content:'';width:3px;height:14px;background:var(--coklat-tua);border-radius:2px}
 
@@ -390,8 +338,7 @@ input,select,textarea{font-family:inherit;font-size:inherit}
   display:grid;grid-template-columns:1fr auto auto;
   gap:12px;padding:14px;background:var(--surface-alt);
   border-radius:var(--radius-sm);margin-bottom:6px;
-  align-items:center;border:1px solid var(--border);
-  transition:var(--trans);
+  align-items:center;border:1px solid var(--border);transition:var(--trans);
 }
 .holding-item:hover{border-color:var(--coklat-muda)}
 .holding-sym{font-weight:700;font-family:'JetBrains Mono';font-size:13px;letter-spacing:-.2px}
@@ -399,16 +346,12 @@ input,select,textarea{font-family:inherit;font-size:inherit}
 .holding-val{text-align:right;font-family:'JetBrains Mono';font-size:12px;font-weight:600}
 .holding-pl{text-align:right;font-size:11px;font-weight:600}
 
-.empty-state{
-  text-align:center;padding:40px 20px;color:var(--text-3);font-size:12px;
-}
+.empty-state{text-align:center;padding:40px 20px;color:var(--text-3);font-size:12px}
 .empty-state p{margin-top:4px;font-size:11px}
 
-/* ============ ALERTS ============ */
 .alert-form{
   background:var(--surface-alt);padding:16px;
-  border-radius:var(--radius-sm);border:1px solid var(--border);
-  margin-bottom:14px;
+  border-radius:var(--radius-sm);border:1px solid var(--border);margin-bottom:14px;
 }
 .alert-form input,.alert-form select{
   width:100%;padding:9px 12px;border:1px solid var(--border);
@@ -422,12 +365,9 @@ input,select,textarea{font-family:inherit;font-size:inherit}
 
 .alert-item{
   display:flex;justify-content:space-between;align-items:center;
-  padding:12px;background:var(--surface-alt);
-  border-radius:var(--radius-sm);margin-bottom:6px;
-  border-left:3px solid var(--coklat-tua);
-  border-right:1px solid var(--border);
-  border-top:1px solid var(--border);
-  border-bottom:1px solid var(--border);
+  padding:12px;background:var(--surface-alt);border-radius:var(--radius-sm);
+  margin-bottom:6px;border-left:3px solid var(--coklat-tua);
+  border-right:1px solid var(--border);border-top:1px solid var(--border);border-bottom:1px solid var(--border);
 }
 .alert-item.triggered{border-left-color:var(--kuning);background:rgba(183,121,31,.05)}
 .alert-info{flex:1}
@@ -440,10 +380,8 @@ input,select,textarea{font-family:inherit;font-size:inherit}
 .info-card p strong{color:var(--text);font-weight:700}
 .info-card .tip{margin-top:12px;padding:10px;background:var(--surface);border-radius:var(--radius-xs);font-size:11px;color:var(--text-3);line-height:1.6}
 
-/* ============ NEWS ============ */
 .news-widget{height:600px;overflow:hidden;border-radius:var(--radius-sm)}
 
-/* ============ TOAST ============ */
 .toast-container{
   position:fixed;bottom:20px;right:20px;z-index:1000;
   display:flex;flex-direction:column;gap:8px;pointer-events:none;
@@ -452,9 +390,7 @@ input,select,textarea{font-family:inherit;font-size:inherit}
   background:var(--surface);padding:12px 18px;
   border-radius:var(--radius-sm);box-shadow:var(--shadow-lg);
   border-left:4px solid var(--coklat-tua);
-  border-right:1px solid var(--border);
-  border-top:1px solid var(--border);
-  border-bottom:1px solid var(--border);
+  border-right:1px solid var(--border);border-top:1px solid var(--border);border-bottom:1px solid var(--border);
   font-size:13px;font-weight:500;min-width:280px;
   animation:slideIn .3s cubic-bezier(.4,0,.2,1);
   pointer-events:auto;display:flex;gap:10px;align-items:center;
@@ -464,7 +400,6 @@ input,select,textarea{font-family:inherit;font-size:inherit}
 .toast.warn{border-left-color:var(--kuning)}
 @keyframes slideIn{from{transform:translateX(100%);opacity:0}to{transform:translateX(0);opacity:1}}
 
-/* ============ MODAL ============ */
 .modal{
   position:fixed;inset:0;background:rgba(43,29,20,.5);
   display:none;align-items:center;justify-content:center;
@@ -479,16 +414,12 @@ input,select,textarea{font-family:inherit;font-size:inherit}
 .modal h3{margin-bottom:10px;color:var(--text);font-size:16px;font-weight:700;letter-spacing:-.3px}
 .modal p{font-size:13px;color:var(--text-2);margin-bottom:20px;line-height:1.6}
 .modal-btns{display:flex;gap:8px}
-.modal-btns button{
-  flex:1;padding:10px;border-radius:var(--radius-sm);
-  font-weight:600;font-size:13px;transition:var(--trans);
-}
+.modal-btns button{flex:1;padding:10px;border-radius:var(--radius-sm);font-weight:600;font-size:13px;transition:var(--trans)}
 .modal-btns .btn-cancel{background:var(--surface-alt);color:var(--text-2);border:1px solid var(--border)}
 .modal-btns .btn-cancel:hover{background:var(--krem)}
 .modal-btns .btn-confirm{background:var(--coklat-tua);color:#fff}
 .modal-btns .btn-confirm:hover{background:var(--coklat)}
 
-/* ============ BOTTOM NAV ============ */
 .bottom-nav{
   display:none;position:fixed;bottom:0;left:0;right:0;
   background:var(--surface);border-top:1px solid var(--border);
@@ -498,23 +429,19 @@ input,select,textarea{font-family:inherit;font-size:inherit}
 .bottom-nav-inner{display:grid;grid-template-columns:repeat(4,1fr);gap:4px;max-width:500px;margin:0 auto}
 .bnav-btn{
   display:flex;flex-direction:column;align-items:center;gap:3px;
-  padding:6px;background:transparent;
-  color:var(--text-3);font-size:10px;font-weight:600;
-  transition:var(--trans);border-radius:var(--radius-xs);
+  padding:6px;background:transparent;color:var(--text-3);
+  font-size:10px;font-weight:600;transition:var(--trans);border-radius:var(--radius-xs);
 }
 .bnav-btn.active{color:var(--coklat-tua);background:var(--krem)}
 .bnav-btn svg{width:18px;height:18px}
 
-/* ============ FOOTER ============ */
 .footer{
   text-align:center;padding:24px;font-size:11px;
-  color:var(--text-3);margin-top:20px;
-  border-top:1px solid var(--border);
+  color:var(--text-3);margin-top:20px;border-top:1px solid var(--border);
 }
 .footer strong{color:var(--text);font-weight:700}
 .footer-meta{margin-top:4px;opacity:.7}
 
-/* ============ RESPONSIVE ============ */
 @media (max-width:1024px){
   .grid{grid-template-columns:1fr}
   .chart-frame,.chart-loading{height:480px}
@@ -529,11 +456,9 @@ input,select,textarea{font-family:inherit;font-size:inherit}
   .chart-toolbar{overflow-x:auto;flex-wrap:nowrap;padding-bottom:4px}
   .tool-btn{white-space:nowrap;flex-shrink:0}
   .portfolio-summary{grid-template-columns:1fr}
-  .quick-stats{grid-template-columns:repeat(3,1fr)}
   .brand-text p{display:none}
 }
 @media (max-width:480px){
-  .quick-stats{grid-template-columns:repeat(2,1fr)}
   .search-wrap{min-width:100%;order:3}
   .header-inner{gap:10px}
 }
@@ -541,7 +466,6 @@ input,select,textarea{font-family:inherit;font-size:inherit}
 </head>
 <body>
 
-<!-- HEADER -->
 <header class="header">
   <div class="header-inner">
     <div class="brand">
@@ -576,7 +500,6 @@ input,select,textarea{font-family:inherit;font-size:inherit}
   </div>
 </header>
 
-<!-- TABS DESKTOP -->
 <nav class="tabs">
   <button class="tab active" onclick="switchView('chart',this)">
     <svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
@@ -587,7 +510,7 @@ input,select,textarea{font-family:inherit;font-size:inherit}
     <span>Portfolio</span>
   </button>
   <button class="tab" onclick="switchView('news',this)">
-    <svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 1-2 2zm0 0a2 2 0 0 1-2-2v-9c0-1.1.9-2 2-2h2"/><path d="M18 14h-8M15 18h-5M10 6h8v4h-8V6z"/></svg>
+    <svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 1-2 2zm0 0a2 2 0 0 1-2-2v-9c0-1.1.9-2 2-2h2"/></svg>
     <span>News</span>
   </button>
   <button class="tab" onclick="switchView('alerts',this)">
@@ -596,10 +519,8 @@ input,select,textarea{font-family:inherit;font-size:inherit}
   </button>
 </nav>
 
-<!-- MAIN -->
 <main class="main">
 
-  <!-- CHART VIEW -->
   <div class="view active" id="view-chart">
     <div class="grid">
       <div>
@@ -628,14 +549,15 @@ input,select,textarea{font-family:inherit;font-size:inherit}
             <button class="tool-btn" onclick="toggleIndicator('MACD')">MACD</button>
             <button class="tool-btn" onclick="toggleIndicator('BB')">Bollinger</button>
           </div>
-          <div class="quick-stats" id="quickStats">
-            <div class="stat-item"><div class="stat-label">Open</div><div class="stat-value" id="statOpen">—</div></div>
-            <div class="stat-item"><div class="stat-label">High</div><div class="stat-value up" id="statHigh">—</div></div>
-            <div class="stat-item"><div class="stat-label">Low</div><div class="stat-value down" id="statLow">—</div></div>
-            <div class="stat-item"><div class="stat-label">Last</div><div class="stat-value" id="statLast">—</div></div>
-            <div class="stat-item"><div class="stat-label">Volume</div><div class="stat-value" id="statVol">—</div></div>
-            <div class="stat-item"><div class="stat-label">Change</div><div class="stat-value" id="statChange">—</div></div>
+
+          <!-- === FIXED: REAL-TIME SYMBOL INFO WIDGET === -->
+          <div class="symbol-info-wrap" id="symbolInfoContainer">
+            <div class="symbol-info-loading">
+              <div class="mini-spinner"></div>
+              <span>Memuat data simbol...</span>
+            </div>
           </div>
+
           <div id="chartArea">
             <div class="chart-loading">
               <div class="spinner"></div>
@@ -645,7 +567,6 @@ input,select,textarea{font-family:inherit;font-size:inherit}
         </div>
       </div>
 
-      <!-- SIDEBAR -->
       <aside>
         <div class="card">
           <div class="sidebar-tabs">
@@ -654,7 +575,6 @@ input,select,textarea{font-family:inherit;font-size:inherit}
             <button class="sidebar-tab" onclick="switchSidebar('fundamental',this)">Info</button>
           </div>
 
-          <!-- WATCHLIST PANEL -->
           <div class="sidebar-panel active" id="panel-watchlist">
             <div id="watchlistContainer"></div>
             <div class="add-watchlist">
@@ -663,7 +583,6 @@ input,select,textarea{font-family:inherit;font-size:inherit}
             </div>
           </div>
 
-          <!-- TRADE PANEL -->
           <div class="sidebar-panel" id="panel-trade">
             <div class="trade-panel">
               <div class="trade-row">
@@ -692,7 +611,6 @@ input,select,textarea{font-family:inherit;font-size:inherit}
             </div>
           </div>
 
-          <!-- FUNDAMENTAL PANEL -->
           <div class="sidebar-panel" id="panel-fundamental">
             <div class="fund-item">
               <div class="fund-label">Market Cap</div>
@@ -716,7 +634,6 @@ input,select,textarea{font-family:inherit;font-size:inherit}
           </div>
         </div>
 
-        <!-- NEWS WIDGET -->
         <div class="card" style="margin-top:16px;padding:12px">
           <div class="card-header">
             <div class="card-title"><span class="title-dot"></span>Berita Terkait</div>
@@ -742,7 +659,6 @@ input,select,textarea{font-family:inherit;font-size:inherit}
     </div>
   </div>
 
-  <!-- PORTFOLIO VIEW -->
   <div class="view" id="view-portfolio">
     <div class="card">
       <div class="card-header">
@@ -776,20 +692,15 @@ input,select,textarea{font-family:inherit;font-size:inherit}
       </div>
       <div class="section-title">Holdings</div>
       <div class="holdings-list" id="holdingsList">
-        <div class="empty-state">
-          <p>Belum ada saham. Mulai trading di tab Chart.</p>
-        </div>
+        <div class="empty-state"><p>Belum ada saham. Mulai trading di tab Chart.</p></div>
       </div>
       <div class="section-title">Riwayat Transaksi</div>
       <div class="holdings-list" id="historyList">
-        <div class="empty-state">
-          <p>Belum ada transaksi</p>
-        </div>
+        <div class="empty-state"><p>Belum ada transaksi</p></div>
       </div>
     </div>
   </div>
 
-  <!-- NEWS VIEW -->
   <div class="view" id="view-news">
     <div class="card">
       <div class="card-header">
@@ -817,7 +728,6 @@ input,select,textarea{font-family:inherit;font-size:inherit}
     </div>
   </div>
 
-  <!-- ALERTS VIEW -->
   <div class="view" id="view-alerts">
     <div class="grid">
       <div class="card">
@@ -856,7 +766,6 @@ input,select,textarea{font-family:inherit;font-size:inherit}
   </div>
 </main>
 
-<!-- BOTTOM NAV MOBILE -->
 <nav class="bottom-nav">
   <div class="bottom-nav-inner">
     <button class="bnav-btn active" onclick="switchView('chart',this)">
@@ -878,10 +787,8 @@ input,select,textarea{font-family:inherit;font-size:inherit}
   </div>
 </nav>
 
-<!-- TOAST CONTAINER -->
 <div class="toast-container" id="toastContainer"></div>
 
-<!-- MODAL -->
 <div class="modal" id="confirmModal">
   <div class="modal-content">
     <h3 id="modalTitle">Konfirmasi</h3>
@@ -899,7 +806,6 @@ input,select,textarea{font-family:inherit;font-size:inherit}
 </footer>
 
 <script>
-// ============ STATE ============
 const state = {
   currentSymbol: 'IDX:BBCA',
   currentTimeframe: '15',
@@ -912,16 +818,12 @@ const state = {
     {symbol:'NASDAQ:TSLA', name:'Tesla Inc.'}
   ],
   portfolio: JSON.parse(localStorage.getItem('sahamku_pro_portfolio')) || {
-    cash: 100000000,
-    holdings: [],
-    history: [],
-    initialCash: 100000000
+    cash: 100000000, holdings: [], history: [], initialCash: 100000000
   },
   alerts: JSON.parse(localStorage.getItem('sahamku_pro_alerts')) || [],
   theme: localStorage.getItem('sahamku_pro_theme') || 'light'
 };
 
-// ============ INIT ============
 function init(){
   applyTheme();
   renderWatchlist();
@@ -929,22 +831,20 @@ function init(){
   renderAlerts();
   loadChart();
   setInterval(checkAlerts, 30000);
-  setInterval(updateStats, 15000);
   document.getElementById('tradeSymbol').value = 'BBCA';
 }
 
-// ============ THEME ============
 function toggleTheme(){
   state.theme = state.theme === 'light' ? 'dark' : 'light';
   localStorage.setItem('sahamku_pro_theme', state.theme);
   applyTheme();
+  // Reload widget dengan theme baru
+  loadSymbolInfo(state.currentSymbol);
+  loadChart(state.currentSymbol);
   showToast(`Tema ${state.theme === 'dark' ? 'gelap' : 'terang'} aktif`, 'success');
 }
-function applyTheme(){
-  document.documentElement.setAttribute('data-theme', state.theme);
-}
+function applyTheme(){ document.documentElement.setAttribute('data-theme', state.theme); }
 
-// ============ VIEWS ============
 function switchView(view, btn){
   document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
   document.getElementById('view-'+view).classList.add('active');
@@ -966,7 +866,39 @@ function switchSidebar(panel, btn){
   btn.classList.add('active');
 }
 
-// ============ CHART ============
+// === FIXED: LOAD SYMBOL INFO WIDGET (REAL-TIME) ===
+function loadSymbolInfo(symbol){
+  const container = document.getElementById('symbolInfoContainer');
+  if(!container) return;
+  
+  // Tampilkan loading state
+  container.innerHTML = `
+    <div class="symbol-info-loading">
+      <div class="mini-spinner"></div>
+      <span>Memuat data ${symbol.split(':')[1] || symbol}...</span>
+    </div>
+  `;
+  
+  // Inject TradingView Symbol Info widget (real-time: Open, High, Low, Last, Volume, Change)
+  setTimeout(() => {
+    const widgetId = 'symbol-info-' + Date.now();
+    container.innerHTML = `
+      <div class="tradingview-widget-container" id="${widgetId}">
+        <div class="tradingview-widget-container__widget"></div>
+        <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-symbol-info.js" async>
+        {
+          "symbol": "${symbol}",
+          "width": "100%",
+          "locale": "id_ID",
+          "colorTheme": "${state.theme === 'dark' ? 'dark' : 'light'}",
+          "isTransparent": true
+        }
+        <\/script>
+      </div>
+    `;
+  }, 100);
+}
+
 function loadChart(symbol){
   const raw = symbol || document.getElementById('symbolInput').value.trim().toUpperCase();
   const ex = symbol ? symbol.split(':')[0] : document.getElementById('exchange').value;
@@ -979,6 +911,9 @@ function loadChart(symbol){
   document.getElementById('chartTitle').textContent = displayName;
   document.getElementById('tradeSymbol').value = raw;
   document.getElementById('alertSymbol').value = raw;
+  
+  // Load symbol info (real-time data)
+  loadSymbolInfo(fullSymbol);
   
   const area = document.getElementById('chartArea');
   area.innerHTML = `<div class="chart-loading"><div class="spinner"></div><p>Memuat ${displayName}...</p></div>`;
@@ -995,7 +930,6 @@ function loadChart(symbol){
       if(loader) loader.remove();
     };
     area.appendChild(iframe);
-    updateStats();
     renderWatchlist();
   }, 150);
 }
@@ -1026,17 +960,6 @@ function exportChart(){
   showToast('Gunakan tombol kamera di toolbar chart', 'warn');
 }
 
-function updateStats(){
-  const stats = ['statOpen','statHigh','statLow','statLast','statVol','statChange'];
-  document.getElementById('statOpen').textContent = '—';
-  document.getElementById('statHigh').textContent = 'Memuat...';
-  document.getElementById('statLow').textContent = 'Memuat...';
-  document.getElementById('statLast').textContent = 'Live';
-  document.getElementById('statVol').textContent = '—';
-  document.getElementById('statChange').textContent = '—';
-}
-
-// ============ WATCHLIST ============
 function renderWatchlist(){
   const container = document.getElementById('watchlistContainer');
   if(state.watchlist.length === 0){
@@ -1083,7 +1006,6 @@ function removeFromWatchlist(index){
   showToast(`${removed.symbol.split(':')[1]} dihapus`, 'success');
 }
 
-// ============ TRADING ============
 function calculateTradeTotal(){
   const price = parseFloat(document.getElementById('tradePrice').value) || 0;
   const lot = parseInt(document.getElementById('tradeLot').value) || 1;
@@ -1107,9 +1029,7 @@ function executeTrade(type){
   const fullSymbol = `${ex}:${symbol}`;
   
   if(type === 'buy'){
-    if(total > state.portfolio.cash){
-      showToast('Saldo tidak cukup', 'error'); return;
-    }
+    if(total > state.portfolio.cash){showToast('Saldo tidak cukup', 'error'); return}
     state.portfolio.cash -= total;
     let holding = state.portfolio.holdings.find(h => h.symbol === fullSymbol);
     if(holding){
@@ -1122,9 +1042,7 @@ function executeTrade(type){
     showToast(`BELI ${lot} lot ${symbol} @ ${formatIDR(price)}`, 'success');
   } else {
     const holding = state.portfolio.holdings.find(h => h.symbol === fullSymbol);
-    if(!holding || holding.lot < lot){
-      showToast('Jumlah lot tidak cukup', 'error'); return;
-    }
+    if(!holding || holding.lot < lot){showToast('Jumlah lot tidak cukup', 'error'); return}
     state.portfolio.cash += total;
     const pl = (price - holding.avgPrice) * lot * 100;
     holding.lot -= lot;
@@ -1201,9 +1119,7 @@ function updatePortfolioBadge(){
   document.getElementById('portfolioValue').textContent = formatIDR(total);
 }
 
-function savePortfolio(){
-  localStorage.setItem('sahamku_pro_portfolio', JSON.stringify(state.portfolio));
-}
+function savePortfolio(){ localStorage.setItem('sahamku_pro_portfolio', JSON.stringify(state.portfolio)); }
 
 function resetPortfolio(){
   showModal('Reset Portfolio?', 'Semua data trading akan dihapus dan saldo kembali ke Rp 100.000.000', () => {
@@ -1215,7 +1131,6 @@ function resetPortfolio(){
   });
 }
 
-// ============ ALERTS ============
 function createAlert(){
   const symbol = document.getElementById('alertSymbol').value.trim().toUpperCase();
   const condition = document.getElementById('alertCondition').value;
@@ -1228,8 +1143,7 @@ function createAlert(){
   state.alerts.push({
     id: Date.now(),
     symbol: `${ex}:${symbol}`,
-    condition,
-    price,
+    condition, price,
     triggered: false,
     created: new Date().toISOString()
   });
@@ -1269,11 +1183,9 @@ function deleteAlert(id){
 
 function checkAlerts(){
   state.alerts.forEach(a => {
-    if(!a.triggered){
-      if(Math.random() < 0.05){
-        a.triggered = true;
-        showToast(`Alert ${a.symbol.split(':')[1]} terpicu`, 'warn');
-      }
+    if(!a.triggered && Math.random() < 0.05){
+      a.triggered = true;
+      showToast(`Alert ${a.symbol.split(':')[1]} terpicu`, 'warn');
     }
   });
   localStorage.setItem('sahamku_pro_alerts', JSON.stringify(state.alerts));
@@ -1282,10 +1194,7 @@ function checkAlerts(){
   }
 }
 
-// ============ UTILITIES ============
-function formatIDR(num){
-  return 'Rp ' + Math.round(num).toLocaleString('id-ID');
-}
+function formatIDR(num){ return 'Rp ' + Math.round(num).toLocaleString('id-ID'); }
 
 function showToast(msg, type='info'){
   const container = document.getElementById('toastContainer');
@@ -1308,29 +1217,19 @@ function showModal(title, message, onConfirm){
     closeModal();
   };
 }
-function closeModal(){
-  document.getElementById('confirmModal').classList.remove('active');
-}
+function closeModal(){ document.getElementById('confirmModal').classList.remove('active'); }
 
-// ============ KEYBOARD SHORTCUTS ============
 document.addEventListener('keydown', (e) => {
   if((e.ctrlKey || e.metaKey) && e.key === 'k'){
     e.preventDefault();
     document.getElementById('symbolInput').focus();
     document.getElementById('symbolInput').select();
   }
-  if(e.key === 'Enter' && document.activeElement.id === 'symbolInput'){
-    loadChart();
-  }
-  if(e.key === 'Enter' && document.activeElement.id === 'addWlInput'){
-    addToWatchlist();
-  }
-  if(e.key === 'Escape'){
-    closeModal();
-  }
+  if(e.key === 'Enter' && document.activeElement.id === 'symbolInput') loadChart();
+  if(e.key === 'Enter' && document.activeElement.id === 'addWlInput') addToWatchlist();
+  if(e.key === 'Escape') closeModal();
 });
 
-// Init
 init();
 </script>
 
