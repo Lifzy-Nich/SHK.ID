@@ -1,0 +1,1338 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
+<title>SahamKu Pro — Trading Simulator</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#F5F2ED;
+  --surface:#FFFFFF;
+  --surface-alt:#FAF8F5;
+  --coklat-tua:#2B1D14;
+  --coklat:#5C3A21;
+  --coklat-muda:#8B6F56;
+  --krem:#EDE5D8;
+  --border:#E0D5C4;
+  --text:#2B1D14;
+  --text-2:#5C3A21;
+  --text-3:#8B6F56;
+  --hijau:#1A7F4B;
+  --hijau-bg:#E8F5EE;
+  --merah:#C53030;
+  --merah-bg:#FDE8E8;
+  --kuning:#B7791F;
+  --shadow-sm:0 1px 2px rgba(43,29,20,.04);
+  --shadow:0 2px 8px rgba(43,29,20,.06);
+  --shadow-md:0 4px 16px rgba(43,29,20,.08);
+  --shadow-lg:0 12px 32px rgba(43,29,20,.12);
+  --radius:10px;
+  --radius-sm:6px;
+  --radius-xs:4px;
+  --trans:all .2s cubic-bezier(.4,0,.2,1);
+}
+[data-theme="dark"]{
+  --bg:#0F0B08;
+  --surface:#1A1410;
+  --surface-alt:#201812;
+  --coklat-tua:#F5E9D7;
+  --coklat:#D4A574;
+  --coklat-muda:#A67B5B;
+  --krem:#2B1D14;
+  --border:#3D2E22;
+  --text:#F5E9D7;
+  --text-2:#D4A574;
+  --text-3:#A67B5B;
+  --hijau:#4ADE80;
+  --hijau-bg:rgba(74,222,128,.1);
+  --merah:#F87171;
+  --merah-bg:rgba(248,113,113,.1);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  line-height:1.5;
+  min-height:100vh;
+  transition:background .3s,color .3s;
+  font-size:14px;
+  -webkit-font-smoothing:antialiased;
+}
+button{font-family:inherit;cursor:pointer;border:none;background:none}
+input,select,textarea{font-family:inherit;font-size:inherit}
+
+/* ============ HEADER ============ */
+.header{
+  background:var(--surface);
+  border-bottom:1px solid var(--border);
+  padding:14px 24px;
+  position:sticky;top:0;z-index:100;
+  backdrop-filter:blur(12px);
+  background:rgba(255,255,255,.85);
+}
+[data-theme="dark"] .header{background:rgba(26,20,16,.85)}
+.header-inner{
+  max-width:1600px;margin:0 auto;
+  display:flex;align-items:center;gap:20px;flex-wrap:wrap;
+}
+.brand{display:flex;align-items:center;gap:10px;min-width:fit-content}
+.logo{
+  width:36px;height:36px;border-radius:8px;
+  background:var(--coklat-tua);color:#fff;
+  display:flex;align-items:center;justify-content:center;
+  font-weight:800;font-size:16px;letter-spacing:-.5px;
+}
+.brand-text h1{font-size:15px;font-weight:700;letter-spacing:-.3px;line-height:1.2}
+.brand-text p{font-size:10px;color:var(--text-3);font-weight:500;letter-spacing:.3px;text-transform:uppercase}
+
+.search-wrap{
+  flex:1;min-width:280px;
+  display:flex;gap:8px;
+  background:var(--surface-alt);
+  padding:6px;border-radius:var(--radius);
+  border:1px solid var(--border);
+}
+.search-wrap input{
+  flex:1;padding:9px 14px;
+  background:transparent;color:var(--text);
+  border:none;font-size:13px;outline:none;font-weight:500;
+}
+.search-wrap input::placeholder{color:var(--text-3)}
+.search-wrap select{
+  padding:9px 12px;background:var(--surface);
+  border:1px solid var(--border);border-radius:var(--radius-sm);
+  font-size:12px;font-weight:600;color:var(--text-2);cursor:pointer;
+}
+.search-wrap button{
+  padding:9px 18px;background:var(--coklat-tua);color:#fff;
+  border-radius:var(--radius-sm);font-weight:600;font-size:13px;
+  transition:var(--trans);
+}
+.search-wrap button:hover{background:var(--coklat)}
+
+.balance-badge{
+  display:flex;align-items:center;gap:12px;
+  padding:8px 14px;background:var(--surface-alt);
+  border:1px solid var(--border);border-radius:var(--radius);
+}
+.balance-badge .label{font-size:10px;color:var(--text-3);font-weight:600;letter-spacing:.3px;text-transform:uppercase}
+.balance-badge strong{font-family:'JetBrains Mono';font-size:13px;font-weight:600;color:var(--text);margin-top:2px;display:block}
+
+.header-actions{display:flex;gap:8px;align-items:center}
+.icon-btn{
+  width:36px;height:36px;border-radius:var(--radius-sm);
+  background:var(--surface-alt);border:1px solid var(--border);
+  color:var(--text-2);
+  display:flex;align-items:center;justify-content:center;
+  transition:var(--trans);
+}
+.icon-btn:hover{background:var(--krem);border-color:var(--coklat-muda)}
+.icon-btn svg{width:16px;height:16px}
+
+/* ============ TABS ============ */
+.tabs{
+  max-width:1600px;margin:0 auto;
+  padding:20px 24px 0;
+  display:flex;gap:4px;overflow-x:auto;
+  scrollbar-width:none;
+  border-bottom:1px solid var(--border);
+}
+.tabs::-webkit-scrollbar{display:none}
+.tab{
+  padding:10px 16px;background:transparent;
+  color:var(--text-3);font-weight:600;font-size:13px;
+  white-space:nowrap;transition:var(--trans);
+  border-bottom:2px solid transparent;
+  margin-bottom:-1px;
+  display:flex;align-items:center;gap:8px;
+}
+.tab:hover{color:var(--text-2)}
+.tab.active{color:var(--coklat-tua);border-bottom-color:var(--coklat-tua)}
+.tab .tab-icon{width:14px;height:14px;display:inline-block;vertical-align:middle}
+
+/* ============ LAYOUT ============ */
+.main{max-width:1600px;margin:0 auto;padding:20px 24px 100px}
+.view{display:none;animation:fadeIn .3s ease-out}
+.view.active{display:block}
+@keyframes fadeIn{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}
+
+.grid{display:grid;grid-template-columns:1fr 380px;gap:20px}
+
+.card{
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  padding:20px;
+  transition:var(--trans);
+}
+.card-header{
+  display:flex;align-items:center;justify-content:space-between;
+  padding-bottom:14px;margin-bottom:14px;
+  border-bottom:1px solid var(--border);
+}
+.card-title{
+  font-size:13px;font-weight:700;color:var(--text);
+  letter-spacing:-.2px;
+  display:flex;align-items:center;gap:8px;
+}
+.card-title .title-dot{width:4px;height:14px;background:var(--coklat-tua);border-radius:2px}
+.card-subtitle{font-size:11px;color:var(--text-3);font-weight:500}
+
+/* ============ BUTTONS ============ */
+.btn{
+  padding:8px 14px;background:var(--coklat-tua);color:#fff;
+  border-radius:var(--radius-sm);font-weight:600;font-size:12px;
+  transition:var(--trans);display:inline-flex;align-items:center;gap:6px;
+}
+.btn:hover{background:var(--coklat)}
+.btn-secondary{background:var(--surface-alt);color:var(--text-2);border:1px solid var(--border)}
+.btn-secondary:hover{background:var(--krem);border-color:var(--coklat-muda)}
+.btn-danger{background:var(--merah)}
+.btn-danger:hover{background:#9B2727}
+
+/* ============ CHART TOOLBAR ============ */
+.chart-toolbar{
+  display:flex;gap:6px;flex-wrap:wrap;
+  padding:10px;background:var(--surface-alt);
+  border-radius:var(--radius-sm);border:1px solid var(--border);
+  margin-bottom:14px;
+}
+.tool-btn{
+  padding:7px 12px;background:transparent;
+  border:1px solid var(--border);border-radius:var(--radius-xs);
+  font-size:11px;font-weight:600;color:var(--text-2);
+  transition:var(--trans);display:inline-flex;align-items:center;gap:4px;
+}
+.tool-btn:hover{border-color:var(--coklat);color:var(--coklat)}
+.tool-btn.active{background:var(--coklat-tua);color:#fff;border-color:var(--coklat-tua)}
+.tool-sep{width:1px;background:var(--border);margin:0 4px}
+
+/* ============ CHART CONTAINER ============ */
+.chart-card{padding:16px;min-height:620px}
+.chart-frame{
+  width:100%;height:580px;border:none;
+  border-radius:var(--radius-sm);background:var(--surface-alt);
+}
+.chart-loading{
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  height:580px;gap:16px;color:var(--text-3);
+}
+.spinner{
+  width:36px;height:36px;border:3px solid var(--border);
+  border-top-color:var(--coklat-tua);border-radius:50%;
+  animation:spin .7s linear infinite;
+}
+@keyframes spin{to{transform:rotate(360deg)}}
+.chart-loading p{font-size:12px;font-weight:500}
+
+/* ============ QUICK STATS ============ */
+.quick-stats{
+  display:grid;grid-template-columns:repeat(6,1fr);
+  gap:1px;padding:14px;background:var(--surface-alt);
+  border-radius:var(--radius-sm);border:1px solid var(--border);
+  margin-bottom:14px;
+}
+.stat-item{text-align:center;padding:4px}
+.stat-label{font-size:10px;color:var(--text-3);font-weight:600;letter-spacing:.5px;text-transform:uppercase;margin-bottom:4px}
+.stat-value{font-family:'JetBrains Mono';font-size:13px;font-weight:600;color:var(--text)}
+.up{color:var(--hijau)}
+.down{color:var(--merah)}
+.up-bg{background:var(--hijau-bg);color:var(--hijau)}
+.down-bg{background:var(--merah-bg);color:var(--merah)}
+
+/* ============ SIDEBAR TABS ============ */
+.sidebar-tabs{
+  display:flex;gap:2px;background:var(--surface-alt);
+  padding:4px;border-radius:var(--radius-sm);
+  border:1px solid var(--border);margin-bottom:14px;
+}
+.sidebar-tab{
+  flex:1;padding:8px;background:transparent;
+  border-radius:var(--radius-xs);
+  font-size:12px;font-weight:600;color:var(--text-3);
+  transition:var(--trans);
+}
+.sidebar-tab:hover{color:var(--text-2)}
+.sidebar-tab.active{background:var(--surface);color:var(--coklat-tua);box-shadow:var(--shadow-sm)}
+.sidebar-panel{display:none}
+.sidebar-panel.active{display:block;animation:fadeIn .25s}
+
+/* ============ WATCHLIST ============ */
+.watchlist-item{
+  display:flex;justify-content:space-between;align-items:center;
+  padding:12px;margin-bottom:6px;
+  background:var(--surface-alt);border-radius:var(--radius-sm);
+  cursor:pointer;transition:var(--trans);
+  border:1px solid transparent;
+}
+.watchlist-item:hover{border-color:var(--border);background:var(--krem)}
+.watchlist-item.active{border-color:var(--coklat-tua);background:var(--krem)}
+.wl-info{flex:1;min-width:0}
+.wl-symbol{font-weight:700;font-size:13px;font-family:'JetBrains Mono';letter-spacing:-.2px}
+.wl-name{font-size:11px;color:var(--text-3);margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.wl-price{text-align:right}
+.wl-price strong{display:block;font-family:'JetBrains Mono';font-size:12px;font-weight:600}
+.wl-change{font-size:10px;font-weight:600;margin-top:2px}
+.wl-actions{display:flex;gap:4px;margin-left:8px}
+.wl-btn{
+  width:24px;height:24px;border-radius:var(--radius-xs);
+  background:transparent;color:var(--text-3);
+  display:flex;align-items:center;justify-content:center;
+  transition:var(--trans);
+}
+.wl-btn:hover{background:var(--merah-bg);color:var(--merah)}
+.wl-btn svg{width:12px;height:12px}
+
+.add-watchlist{display:flex;gap:6px;margin-top:12px}
+.add-watchlist input{
+  flex:1;padding:9px 12px;border:1px solid var(--border);
+  border-radius:var(--radius-sm);font-size:12px;font-weight:500;
+  background:var(--surface);color:var(--text);outline:none;
+  transition:var(--trans);
+}
+.add-watchlist input:focus{border-color:var(--coklat-tua)}
+.add-watchlist button{
+  padding:9px 14px;background:var(--coklat-tua);color:#fff;
+  border-radius:var(--radius-sm);font-size:12px;font-weight:600;
+  transition:var(--trans);
+}
+.add-watchlist button:hover{background:var(--coklat)}
+
+/* ============ TRADE PANEL ============ */
+.trade-panel{
+  background:var(--surface-alt);padding:16px;
+  border-radius:var(--radius-sm);border:1px solid var(--border);
+}
+.trade-row{display:flex;gap:10px;margin-bottom:10px;align-items:center}
+.trade-row label{font-size:11px;color:var(--text-2);font-weight:600;min-width:50px;letter-spacing:.3px}
+.trade-row input{
+  flex:1;padding:9px 11px;border:1px solid var(--border);
+  border-radius:var(--radius-xs);font-family:'JetBrains Mono';font-size:13px;
+  background:var(--surface);color:var(--text);outline:none;
+  transition:var(--trans);font-weight:500;
+}
+.trade-row input:focus{border-color:var(--coklat-tua)}
+.trade-summary{
+  display:flex;justify-content:space-between;align-items:center;
+  padding:10px 12px;background:var(--surface);
+  border-radius:var(--radius-xs);border:1px solid var(--border);
+  margin-bottom:10px;
+}
+.trade-summary span{font-size:11px;color:var(--text-3);font-weight:600;letter-spacing:.3px}
+.trade-summary strong{font-family:'JetBrains Mono';font-size:13px;font-weight:600}
+.trade-btns{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}
+.trade-btn{
+  padding:11px;border:none;border-radius:var(--radius-sm);
+  font-weight:700;font-size:12px;color:#fff;
+  transition:var(--trans);letter-spacing:.5px;text-transform:uppercase;
+}
+.trade-btn.buy{background:var(--hijau)}
+.trade-btn.buy:hover{background:#166B3F}
+.trade-btn.sell{background:var(--merah)}
+.trade-btn.sell:hover{background:#9B2727}
+.trade-btn:disabled{opacity:.5;cursor:not-allowed}
+
+.tip-box{
+  margin-top:12px;padding:10px 12px;
+  background:var(--surface-alt);border-left:3px solid var(--coklat-tua);
+  border-radius:var(--radius-xs);
+  font-size:11px;color:var(--text-2);line-height:1.6;
+}
+.tip-box strong{color:var(--text);font-weight:700}
+
+/* ============ FUNDAMENTAL ============ */
+.fund-item{
+  padding:12px;background:var(--surface-alt);
+  border-radius:var(--radius-sm);margin-bottom:8px;
+  border:1px solid var(--border);
+}
+.fund-item .fund-label{font-size:10px;color:var(--text-3);font-weight:600;letter-spacing:.5px;text-transform:uppercase;margin-bottom:4px}
+.fund-item .fund-value{font-family:'JetBrains Mono';font-size:15px;font-weight:600;color:var(--text)}
+
+.info-box{
+  margin-top:12px;padding:12px;
+  background:var(--surface-alt);border-radius:var(--radius-sm);
+  border:1px solid var(--border);
+  font-size:11px;color:var(--text-2);line-height:1.6;
+}
+.info-box strong{color:var(--text);font-weight:700}
+
+/* ============ PORTFOLIO ============ */
+.portfolio-summary{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-bottom:20px}
+.port-card{
+  background:var(--surface-alt);padding:16px;
+  border-radius:var(--radius-sm);border:1px solid var(--border);
+  transition:var(--trans);
+}
+.port-card:hover{border-color:var(--coklat-muda)}
+.port-card.highlight{
+  background:var(--coklat-tua);color:#fff;border:none;
+  box-shadow:var(--shadow-md);
+}
+.port-card.highlight .port-label{color:rgba(255,255,255,.7)}
+.port-card.highlight .port-sub{color:rgba(255,255,255,.85)}
+.port-label{font-size:10px;color:var(--text-3);font-weight:600;letter-spacing:.5px;text-transform:uppercase;margin-bottom:6px}
+.port-value{font-family:'JetBrains Mono';font-size:18px;font-weight:700;letter-spacing:-.3px}
+.port-sub{font-size:11px;color:var(--text-3);margin-top:4px;font-weight:500}
+
+.section-title{
+  font-size:13px;font-weight:700;color:var(--text);
+  letter-spacing:-.2px;margin:20px 0 12px;
+  display:flex;align-items:center;gap:8px;
+}
+.section-title::before{content:'';width:3px;height:14px;background:var(--coklat-tua);border-radius:2px}
+
+.holding-item{
+  display:grid;grid-template-columns:1fr auto auto;
+  gap:12px;padding:14px;background:var(--surface-alt);
+  border-radius:var(--radius-sm);margin-bottom:6px;
+  align-items:center;border:1px solid var(--border);
+  transition:var(--trans);
+}
+.holding-item:hover{border-color:var(--coklat-muda)}
+.holding-sym{font-weight:700;font-family:'JetBrains Mono';font-size:13px;letter-spacing:-.2px}
+.holding-info{font-size:11px;color:var(--text-3);margin-top:2px}
+.holding-val{text-align:right;font-family:'JetBrains Mono';font-size:12px;font-weight:600}
+.holding-pl{text-align:right;font-size:11px;font-weight:600}
+
+.empty-state{
+  text-align:center;padding:40px 20px;color:var(--text-3);font-size:12px;
+}
+.empty-state p{margin-top:4px;font-size:11px}
+
+/* ============ ALERTS ============ */
+.alert-form{
+  background:var(--surface-alt);padding:16px;
+  border-radius:var(--radius-sm);border:1px solid var(--border);
+  margin-bottom:14px;
+}
+.alert-form input,.alert-form select{
+  width:100%;padding:9px 12px;border:1px solid var(--border);
+  border-radius:var(--radius-xs);font-size:12px;font-weight:500;
+  background:var(--surface);color:var(--text);outline:none;
+  margin-bottom:8px;transition:var(--trans);
+}
+.alert-form input:focus,.alert-form select:focus{border-color:var(--coklat-tua)}
+.alert-form button{width:100%;padding:10px;background:var(--coklat-tua);color:#fff;border-radius:var(--radius-sm);font-weight:600;font-size:12px;transition:var(--trans)}
+.alert-form button:hover{background:var(--coklat)}
+
+.alert-item{
+  display:flex;justify-content:space-between;align-items:center;
+  padding:12px;background:var(--surface-alt);
+  border-radius:var(--radius-sm);margin-bottom:6px;
+  border-left:3px solid var(--coklat-tua);
+  border-right:1px solid var(--border);
+  border-top:1px solid var(--border);
+  border-bottom:1px solid var(--border);
+}
+.alert-item.triggered{border-left-color:var(--kuning);background:rgba(183,121,31,.05)}
+.alert-info{flex:1}
+.alert-sym{font-weight:700;font-size:13px;font-family:'JetBrains Mono'}
+.alert-cond{font-size:11px;color:var(--text-3);margin-top:2px}
+.alert-status{font-size:10px;font-weight:700;color:var(--kuning);margin-top:3px;letter-spacing:.3px}
+
+.info-card{padding:16px;background:var(--surface-alt);border-radius:var(--radius-sm);border:1px solid var(--border)}
+.info-card p{font-size:12px;color:var(--text-2);line-height:1.7;margin-bottom:8px}
+.info-card p strong{color:var(--text);font-weight:700}
+.info-card .tip{margin-top:12px;padding:10px;background:var(--surface);border-radius:var(--radius-xs);font-size:11px;color:var(--text-3);line-height:1.6}
+
+/* ============ NEWS ============ */
+.news-widget{height:600px;overflow:hidden;border-radius:var(--radius-sm)}
+
+/* ============ TOAST ============ */
+.toast-container{
+  position:fixed;bottom:20px;right:20px;z-index:1000;
+  display:flex;flex-direction:column;gap:8px;pointer-events:none;
+}
+.toast{
+  background:var(--surface);padding:12px 18px;
+  border-radius:var(--radius-sm);box-shadow:var(--shadow-lg);
+  border-left:4px solid var(--coklat-tua);
+  border-right:1px solid var(--border);
+  border-top:1px solid var(--border);
+  border-bottom:1px solid var(--border);
+  font-size:13px;font-weight:500;min-width:280px;
+  animation:slideIn .3s cubic-bezier(.4,0,.2,1);
+  pointer-events:auto;display:flex;gap:10px;align-items:center;
+}
+.toast.success{border-left-color:var(--hijau)}
+.toast.error{border-left-color:var(--merah)}
+.toast.warn{border-left-color:var(--kuning)}
+@keyframes slideIn{from{transform:translateX(100%);opacity:0}to{transform:translateX(0);opacity:1}}
+
+/* ============ MODAL ============ */
+.modal{
+  position:fixed;inset:0;background:rgba(43,29,20,.5);
+  display:none;align-items:center;justify-content:center;
+  z-index:500;padding:20px;backdrop-filter:blur(4px);
+}
+.modal.active{display:flex;animation:fadeIn .2s}
+.modal-content{
+  background:var(--surface);border-radius:var(--radius);
+  padding:24px;max-width:400px;width:100%;
+  box-shadow:var(--shadow-lg);border:1px solid var(--border);
+}
+.modal h3{margin-bottom:10px;color:var(--text);font-size:16px;font-weight:700;letter-spacing:-.3px}
+.modal p{font-size:13px;color:var(--text-2);margin-bottom:20px;line-height:1.6}
+.modal-btns{display:flex;gap:8px}
+.modal-btns button{
+  flex:1;padding:10px;border-radius:var(--radius-sm);
+  font-weight:600;font-size:13px;transition:var(--trans);
+}
+.modal-btns .btn-cancel{background:var(--surface-alt);color:var(--text-2);border:1px solid var(--border)}
+.modal-btns .btn-cancel:hover{background:var(--krem)}
+.modal-btns .btn-confirm{background:var(--coklat-tua);color:#fff}
+.modal-btns .btn-confirm:hover{background:var(--coklat)}
+
+/* ============ BOTTOM NAV ============ */
+.bottom-nav{
+  display:none;position:fixed;bottom:0;left:0;right:0;
+  background:var(--surface);border-top:1px solid var(--border);
+  padding:8px 0 calc(8px + env(safe-area-inset-bottom));
+  z-index:90;box-shadow:0 -2px 12px rgba(0,0,0,.04);
+}
+.bottom-nav-inner{display:grid;grid-template-columns:repeat(4,1fr);gap:4px;max-width:500px;margin:0 auto}
+.bnav-btn{
+  display:flex;flex-direction:column;align-items:center;gap:3px;
+  padding:6px;background:transparent;
+  color:var(--text-3);font-size:10px;font-weight:600;
+  transition:var(--trans);border-radius:var(--radius-xs);
+}
+.bnav-btn.active{color:var(--coklat-tua);background:var(--krem)}
+.bnav-btn svg{width:18px;height:18px}
+
+/* ============ FOOTER ============ */
+.footer{
+  text-align:center;padding:24px;font-size:11px;
+  color:var(--text-3);margin-top:20px;
+  border-top:1px solid var(--border);
+}
+.footer strong{color:var(--text);font-weight:700}
+.footer-meta{margin-top:4px;opacity:.7}
+
+/* ============ RESPONSIVE ============ */
+@media (max-width:1024px){
+  .grid{grid-template-columns:1fr}
+  .chart-frame,.chart-loading{height:480px}
+  .balance-badge{display:none}
+}
+@media (max-width:768px){
+  .header{padding:12px 16px}
+  .main{padding:16px 16px 100px}
+  .tabs{padding:16px 16px 0;display:none}
+  .bottom-nav{display:block}
+  .chart-frame,.chart-loading{height:400px}
+  .chart-toolbar{overflow-x:auto;flex-wrap:nowrap;padding-bottom:4px}
+  .tool-btn{white-space:nowrap;flex-shrink:0}
+  .portfolio-summary{grid-template-columns:1fr}
+  .quick-stats{grid-template-columns:repeat(3,1fr)}
+  .brand-text p{display:none}
+}
+@media (max-width:480px){
+  .quick-stats{grid-template-columns:repeat(2,1fr)}
+  .search-wrap{min-width:100%;order:3}
+  .header-inner{gap:10px}
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="header">
+  <div class="header-inner">
+    <div class="brand">
+      <div class="logo">SK</div>
+      <div class="brand-text">
+        <h1>SahamKu Pro</h1>
+        <p>Trading Simulator</p>
+      </div>
+    </div>
+    <div class="search-wrap">
+      <input type="text" id="symbolInput" placeholder="Cari simbol: BBCA, AAPL, TSLA..." value="BBCA" />
+      <select id="exchange">
+        <option value="IDX">IDX</option>
+        <option value="NASDAQ">NASDAQ</option>
+        <option value="NYSE">NYSE</option>
+        <option value="LSE">LSE</option>
+        <option value="TSE">TSE</option>
+      </select>
+      <button onclick="loadChart()">Cari</button>
+    </div>
+    <div class="balance-badge">
+      <div>
+        <span class="label">Portfolio</span>
+        <strong id="portfolioValue">Rp 100.000.000</strong>
+      </div>
+    </div>
+    <div class="header-actions">
+      <button class="icon-btn" onclick="toggleTheme()" title="Toggle tema">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- TABS DESKTOP -->
+<nav class="tabs">
+  <button class="tab active" onclick="switchView('chart',this)">
+    <svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+    <span>Chart</span>
+  </button>
+  <button class="tab" onclick="switchView('portfolio',this)">
+    <svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 7h-3V5a2 2 0 0 0-2-2H9a2 2 0 0 0-2 2v2H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2z"/></svg>
+    <span>Portfolio</span>
+  </button>
+  <button class="tab" onclick="switchView('news',this)">
+    <svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 1-2 2zm0 0a2 2 0 0 1-2-2v-9c0-1.1.9-2 2-2h2"/><path d="M18 14h-8M15 18h-5M10 6h8v4h-8V6z"/></svg>
+    <span>News</span>
+  </button>
+  <button class="tab" onclick="switchView('alerts',this)">
+    <svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+    <span>Alerts</span>
+  </button>
+</nav>
+
+<!-- MAIN -->
+<main class="main">
+
+  <!-- CHART VIEW -->
+  <div class="view active" id="view-chart">
+    <div class="grid">
+      <div>
+        <div class="card chart-card">
+          <div class="card-header">
+            <div>
+              <div class="card-title"><span class="title-dot"></span>Grafik <span id="chartTitle" style="font-weight:600">BBCA (IDX)</span></div>
+              <div class="card-subtitle">Data real-time dari TradingView</div>
+            </div>
+            <button class="btn btn-secondary" onclick="exportChart()">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
+              Export
+            </button>
+          </div>
+          <div class="chart-toolbar" id="chartToolbar">
+            <button class="tool-btn" data-tf="1" onclick="setTimeframe('1',this)">1m</button>
+            <button class="tool-btn" data-tf="5" onclick="setTimeframe('5',this)">5m</button>
+            <button class="tool-btn active" data-tf="15" onclick="setTimeframe('15',this)">15m</button>
+            <button class="tool-btn" data-tf="60" onclick="setTimeframe('60',this)">1H</button>
+            <button class="tool-btn" data-tf="240" onclick="setTimeframe('240',this)">4H</button>
+            <button class="tool-btn" data-tf="D" onclick="setTimeframe('D',this)">1D</button>
+            <button class="tool-btn" data-tf="W" onclick="setTimeframe('W',this)">1W</button>
+            <div class="tool-sep"></div>
+            <button class="tool-btn" onclick="toggleIndicator('MA')">MA</button>
+            <button class="tool-btn" onclick="toggleIndicator('RSI')">RSI</button>
+            <button class="tool-btn" onclick="toggleIndicator('MACD')">MACD</button>
+            <button class="tool-btn" onclick="toggleIndicator('BB')">Bollinger</button>
+          </div>
+          <div class="quick-stats" id="quickStats">
+            <div class="stat-item"><div class="stat-label">Open</div><div class="stat-value" id="statOpen">—</div></div>
+            <div class="stat-item"><div class="stat-label">High</div><div class="stat-value up" id="statHigh">—</div></div>
+            <div class="stat-item"><div class="stat-label">Low</div><div class="stat-value down" id="statLow">—</div></div>
+            <div class="stat-item"><div class="stat-label">Last</div><div class="stat-value" id="statLast">—</div></div>
+            <div class="stat-item"><div class="stat-label">Volume</div><div class="stat-value" id="statVol">—</div></div>
+            <div class="stat-item"><div class="stat-label">Change</div><div class="stat-value" id="statChange">—</div></div>
+          </div>
+          <div id="chartArea">
+            <div class="chart-loading">
+              <div class="spinner"></div>
+              <p>Memuat grafik real-time...</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SIDEBAR -->
+      <aside>
+        <div class="card">
+          <div class="sidebar-tabs">
+            <button class="sidebar-tab active" onclick="switchSidebar('watchlist',this)">Watchlist</button>
+            <button class="sidebar-tab" onclick="switchSidebar('trade',this)">Trade</button>
+            <button class="sidebar-tab" onclick="switchSidebar('fundamental',this)">Info</button>
+          </div>
+
+          <!-- WATCHLIST PANEL -->
+          <div class="sidebar-panel active" id="panel-watchlist">
+            <div id="watchlistContainer"></div>
+            <div class="add-watchlist">
+              <input type="text" id="addWlInput" placeholder="Tambah simbol (contoh: GOTO)" />
+              <button onclick="addToWatchlist()">Tambah</button>
+            </div>
+          </div>
+
+          <!-- TRADE PANEL -->
+          <div class="sidebar-panel" id="panel-trade">
+            <div class="trade-panel">
+              <div class="trade-row">
+                <label>Simbol</label>
+                <input type="text" id="tradeSymbol" readonly />
+              </div>
+              <div class="trade-row">
+                <label>Harga</label>
+                <input type="number" id="tradePrice" placeholder="Harga per lembar" />
+              </div>
+              <div class="trade-row">
+                <label>Lot</label>
+                <input type="number" id="tradeLot" value="1" min="1" />
+              </div>
+              <div class="trade-summary">
+                <span>Total Biaya</span>
+                <strong id="tradeTotal">Rp 0</strong>
+              </div>
+              <div class="trade-btns">
+                <button class="trade-btn buy" onclick="executeTrade('buy')">BELI</button>
+                <button class="trade-btn sell" onclick="executeTrade('sell')">JUAL</button>
+              </div>
+            </div>
+            <div class="tip-box">
+              <strong>Catatan:</strong> 1 lot = 100 lembar. Masukkan harga saat ini untuk simulasi akurat.
+            </div>
+          </div>
+
+          <!-- FUNDAMENTAL PANEL -->
+          <div class="sidebar-panel" id="panel-fundamental">
+            <div class="fund-item">
+              <div class="fund-label">Market Cap</div>
+              <div class="fund-value" id="fundMarketCap">—</div>
+            </div>
+            <div class="fund-item">
+              <div class="fund-label">P/E Ratio</div>
+              <div class="fund-value" id="fundPE">—</div>
+            </div>
+            <div class="fund-item">
+              <div class="fund-label">Dividend Yield</div>
+              <div class="fund-value" id="fundDiv">—</div>
+            </div>
+            <div class="fund-item">
+              <div class="fund-label">52-Week Range</div>
+              <div class="fund-value" id="fund52w">—</div>
+            </div>
+            <div class="info-box">
+              <strong>Tentang:</strong> Data fundamental ditampilkan dari feed TradingView. Untuk analisis mendalam, gunakan toolbar chart.
+            </div>
+          </div>
+        </div>
+
+        <!-- NEWS WIDGET -->
+        <div class="card" style="margin-top:16px;padding:12px">
+          <div class="card-header">
+            <div class="card-title"><span class="title-dot"></span>Berita Terkait</div>
+          </div>
+          <div class="news-widget">
+            <div class="tradingview-widget-container" style="height:100%">
+              <div class="tradingview-widget-container__widget"></div>
+              <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-timeline.js" async>
+              {
+                "feedMode":"all_symbols",
+                "isTransparent":true,
+                "displayMode":"regular",
+                "width":"100%",
+                "height":"100%",
+                "colorTheme":"light",
+                "locale":"id_ID"
+              }
+              </script>
+            </div>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </div>
+
+  <!-- PORTFOLIO VIEW -->
+  <div class="view" id="view-portfolio">
+    <div class="card">
+      <div class="card-header">
+        <div>
+          <div class="card-title"><span class="title-dot"></span>Portfolio Anda</div>
+          <div class="card-subtitle">Ringkasan aset dan riwayat trading</div>
+        </div>
+        <button class="btn btn-secondary" onclick="resetPortfolio()">Reset</button>
+      </div>
+      <div class="portfolio-summary">
+        <div class="port-card highlight">
+          <div class="port-label">Total Value</div>
+          <div class="port-value" id="portTotal">Rp 100.000.000</div>
+          <div class="port-sub" id="portPL">P/L: Rp 0 (0%)</div>
+        </div>
+        <div class="port-card">
+          <div class="port-label">Cash Available</div>
+          <div class="port-value" id="portCash">Rp 100.000.000</div>
+          <div class="port-sub">Siap untuk trading</div>
+        </div>
+        <div class="port-card">
+          <div class="port-label">Stock Value</div>
+          <div class="port-value" id="portStock">Rp 0</div>
+          <div class="port-sub" id="portCount">0 posisi</div>
+        </div>
+        <div class="port-card">
+          <div class="port-label">Total Trades</div>
+          <div class="port-value" id="portTrades">0</div>
+          <div class="port-sub">Transaksi tercatat</div>
+        </div>
+      </div>
+      <div class="section-title">Holdings</div>
+      <div class="holdings-list" id="holdingsList">
+        <div class="empty-state">
+          <p>Belum ada saham. Mulai trading di tab Chart.</p>
+        </div>
+      </div>
+      <div class="section-title">Riwayat Transaksi</div>
+      <div class="holdings-list" id="historyList">
+        <div class="empty-state">
+          <p>Belum ada transaksi</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- NEWS VIEW -->
+  <div class="view" id="view-news">
+    <div class="card">
+      <div class="card-header">
+        <div>
+          <div class="card-title"><span class="title-dot"></span>Berita Pasar Global</div>
+          <div class="card-subtitle">Update terkini dari berbagai bursa</div>
+        </div>
+      </div>
+      <div class="news-widget" style="height:700px">
+        <div class="tradingview-widget-container" style="height:100%">
+          <div class="tradingview-widget-container__widget"></div>
+          <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-timeline.js" async>
+          {
+            "feedMode":"all_symbols",
+            "isTransparent":true,
+            "displayMode":"regular",
+            "width":"100%",
+            "height":"100%",
+            "colorTheme":"light",
+            "locale":"id_ID"
+          }
+          </script>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ALERTS VIEW -->
+  <div class="view" id="view-alerts">
+    <div class="grid">
+      <div class="card">
+        <div class="card-header">
+          <div>
+            <div class="card-title"><span class="title-dot"></span>Price Alerts</div>
+            <div class="card-subtitle">Monitor harga saham secara otomatis</div>
+          </div>
+        </div>
+        <div class="alert-form">
+          <input type="text" id="alertSymbol" placeholder="Simbol (contoh: BBCA)" />
+          <select id="alertCondition">
+            <option value="above">Harga di ATAS</option>
+            <option value="below">Harga di BAWAH</option>
+          </select>
+          <input type="number" id="alertPrice" placeholder="Harga target" />
+          <button onclick="createAlert()">Buat Alert</button>
+        </div>
+        <div id="alertsList"></div>
+      </div>
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title"><span class="title-dot"></span>Cara Kerja</div>
+        </div>
+        <div class="info-card">
+          <p><strong>1.</strong> Buat alert untuk saham tertentu dengan harga target.</p>
+          <p><strong>2.</strong> Sistem akan cek harga setiap 30 detik.</p>
+          <p><strong>3.</strong> Saat harga target tercapai, notifikasi muncul.</p>
+          <p><strong>4.</strong> Alert otomatis ditandai sebagai "Triggered".</p>
+          <div class="tip">
+            <strong>Tips:</strong> Buka tab Chart untuk saham yang ingin di-alert agar data harga terupdate.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<!-- BOTTOM NAV MOBILE -->
+<nav class="bottom-nav">
+  <div class="bottom-nav-inner">
+    <button class="bnav-btn active" onclick="switchView('chart',this)">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+      <span>Chart</span>
+    </button>
+    <button class="bnav-btn" onclick="switchView('portfolio',this)">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 7h-3V5a2 2 0 0 0-2-2H9a2 2 0 0 0-2 2v2H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2z"/></svg>
+      <span>Portfolio</span>
+    </button>
+    <button class="bnav-btn" onclick="switchView('news',this)">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 1-2 2zm0 0a2 2 0 0 1-2-2v-9c0-1.1.9-2 2-2h2"/></svg>
+      <span>News</span>
+    </button>
+    <button class="bnav-btn" onclick="switchView('alerts',this)">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+      <span>Alerts</span>
+    </button>
+  </div>
+</nav>
+
+<!-- TOAST CONTAINER -->
+<div class="toast-container" id="toastContainer"></div>
+
+<!-- MODAL -->
+<div class="modal" id="confirmModal">
+  <div class="modal-content">
+    <h3 id="modalTitle">Konfirmasi</h3>
+    <p id="modalMessage">Apakah Anda yakin?</p>
+    <div class="modal-btns">
+      <button class="btn-cancel" onclick="closeModal()">Batal</button>
+      <button class="btn-confirm" id="modalConfirmBtn">Ya, Lanjutkan</button>
+    </div>
+  </div>
+</div>
+
+<footer class="footer">
+  <p><strong>SahamKu Pro</strong> — Data real-time dari TradingView</p>
+  <p class="footer-meta">© 2026 — Untuk edukasi dan simulasi trading · Ctrl+K untuk search cepat</p>
+</footer>
+
+<script>
+// ============ STATE ============
+const state = {
+  currentSymbol: 'IDX:BBCA',
+  currentTimeframe: '15',
+  activeIndicators: [],
+  watchlist: JSON.parse(localStorage.getItem('sahamku_pro_watchlist')) || [
+    {symbol:'IDX:BBCA', name:'Bank Central Asia'},
+    {symbol:'IDX:BBRI', name:'Bank Rakyat Indonesia'},
+    {symbol:'IDX:TLKM', name:'Telkom Indonesia'},
+    {symbol:'NASDAQ:AAPL', name:'Apple Inc.'},
+    {symbol:'NASDAQ:TSLA', name:'Tesla Inc.'}
+  ],
+  portfolio: JSON.parse(localStorage.getItem('sahamku_pro_portfolio')) || {
+    cash: 100000000,
+    holdings: [],
+    history: [],
+    initialCash: 100000000
+  },
+  alerts: JSON.parse(localStorage.getItem('sahamku_pro_alerts')) || [],
+  theme: localStorage.getItem('sahamku_pro_theme') || 'light'
+};
+
+// ============ INIT ============
+function init(){
+  applyTheme();
+  renderWatchlist();
+  renderPortfolio();
+  renderAlerts();
+  loadChart();
+  setInterval(checkAlerts, 30000);
+  setInterval(updateStats, 15000);
+  document.getElementById('tradeSymbol').value = 'BBCA';
+}
+
+// ============ THEME ============
+function toggleTheme(){
+  state.theme = state.theme === 'light' ? 'dark' : 'light';
+  localStorage.setItem('sahamku_pro_theme', state.theme);
+  applyTheme();
+  showToast(`Tema ${state.theme === 'dark' ? 'gelap' : 'terang'} aktif`, 'success');
+}
+function applyTheme(){
+  document.documentElement.setAttribute('data-theme', state.theme);
+}
+
+// ============ VIEWS ============
+function switchView(view, btn){
+  document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+  document.getElementById('view-'+view).classList.add('active');
+  document.querySelectorAll('.tab, .bnav-btn').forEach(t => t.classList.remove('active'));
+  if(btn) btn.classList.add('active');
+  document.querySelectorAll('.tab, .bnav-btn').forEach(t => {
+    const onclick = t.getAttribute('onclick') || '';
+    if(onclick.includes(`'${view}'`)) t.classList.add('active');
+  });
+  if(view === 'portfolio') renderPortfolio();
+  if(view === 'alerts') renderAlerts();
+  window.scrollTo({top:0, behavior:'smooth'});
+}
+
+function switchSidebar(panel, btn){
+  document.querySelectorAll('.sidebar-panel').forEach(p => p.classList.remove('active'));
+  document.getElementById('panel-'+panel).classList.add('active');
+  document.querySelectorAll('.sidebar-tab').forEach(t => t.classList.remove('active'));
+  btn.classList.add('active');
+}
+
+// ============ CHART ============
+function loadChart(symbol){
+  const raw = symbol || document.getElementById('symbolInput').value.trim().toUpperCase();
+  const ex = symbol ? symbol.split(':')[0] : document.getElementById('exchange').value;
+  if(!raw){showToast('Masukkan simbol saham', 'error'); return}
+  
+  const fullSymbol = symbol || `${ex}:${raw}`;
+  state.currentSymbol = fullSymbol;
+  
+  const displayName = raw + (symbol ? '' : ` (${ex})`);
+  document.getElementById('chartTitle').textContent = displayName;
+  document.getElementById('tradeSymbol').value = raw;
+  document.getElementById('alertSymbol').value = raw;
+  
+  const area = document.getElementById('chartArea');
+  area.innerHTML = `<div class="chart-loading"><div class="spinner"></div><p>Memuat ${displayName}...</p></div>`;
+  
+  setTimeout(() => {
+    const indicators = state.activeIndicators.join(',');
+    const url = `https://s.tradingview.com/widgetembed/?frameElementId=tradingview_widget&symbol=${encodeURIComponent(fullSymbol)}&interval=${state.currentTimeframe}&hidesidetoolbar=0&symboledit=1&saveimage=1&toolbarbg=f1f3f6&studies=${encodeURIComponent(indicators)}&theme=${state.theme === 'dark' ? 'dark' : 'light'}&style=1&timezone=Asia%2FJakarta&withdaterange=1&locale=id_ID&utm_source=sahamku`;
+    
+    const iframe = document.createElement('iframe');
+    iframe.className = 'chart-frame';
+    iframe.src = url;
+    iframe.onload = function(){
+      const loader = area.querySelector('.chart-loading');
+      if(loader) loader.remove();
+    };
+    area.appendChild(iframe);
+    updateStats();
+    renderWatchlist();
+  }, 150);
+}
+
+function setTimeframe(tf, btn){
+  state.currentTimeframe = tf;
+  document.querySelectorAll('[data-tf]').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  loadChart(state.currentSymbol);
+  showToast(`Timeframe ${btn.textContent}`, 'success');
+}
+
+function toggleIndicator(ind){
+  const btn = event.target;
+  if(state.activeIndicators.includes(ind)){
+    state.activeIndicators = state.activeIndicators.filter(i => i !== ind);
+    btn.classList.remove('active');
+  } else {
+    state.activeIndicators.push(ind);
+    btn.classList.add('active');
+  }
+  loadChart(state.currentSymbol);
+}
+
+function exportChart(){
+  const iframe = document.querySelector('.chart-frame');
+  if(!iframe){showToast('Grafik belum siap', 'error'); return}
+  showToast('Gunakan tombol kamera di toolbar chart', 'warn');
+}
+
+function updateStats(){
+  const stats = ['statOpen','statHigh','statLow','statLast','statVol','statChange'];
+  document.getElementById('statOpen').textContent = '—';
+  document.getElementById('statHigh').textContent = 'Memuat...';
+  document.getElementById('statLow').textContent = 'Memuat...';
+  document.getElementById('statLast').textContent = 'Live';
+  document.getElementById('statVol').textContent = '—';
+  document.getElementById('statChange').textContent = '—';
+}
+
+// ============ WATCHLIST ============
+function renderWatchlist(){
+  const container = document.getElementById('watchlistContainer');
+  if(state.watchlist.length === 0){
+    container.innerHTML = '<div class="empty-state"><p>Belum ada watchlist</p></div>';
+    return;
+  }
+  container.innerHTML = state.watchlist.map((w, i) => `
+    <div class="watchlist-item ${w.symbol === state.currentSymbol ? 'active' : ''}" onclick="loadChart('${w.symbol}')">
+      <div class="wl-info">
+        <div class="wl-symbol">${w.symbol.split(':')[1]}</div>
+        <div class="wl-name">${w.name}</div>
+      </div>
+      <div class="wl-price"><strong>Live</strong><div class="wl-change">${w.symbol.split(':')[0]}</div></div>
+      <div class="wl-actions">
+        <button class="wl-btn" onclick="event.stopPropagation();removeFromWatchlist(${i})" title="Hapus">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
+        </button>
+      </div>
+    </div>
+  `).join('');
+}
+
+function addToWatchlist(){
+  const input = document.getElementById('addWlInput');
+  const raw = input.value.trim().toUpperCase();
+  if(!raw){showToast('Masukkan simbol', 'error'); return}
+  const ex = document.getElementById('exchange').value;
+  const symbol = `${ex}:${raw}`;
+  if(state.watchlist.some(w => w.symbol === symbol)){
+    showToast('Sudah ada di watchlist', 'warn'); return;
+  }
+  state.watchlist.push({symbol, name:raw});
+  localStorage.setItem('sahamku_pro_watchlist', JSON.stringify(state.watchlist));
+  input.value = '';
+  renderWatchlist();
+  showToast(`${raw} ditambahkan`, 'success');
+}
+
+function removeFromWatchlist(index){
+  const removed = state.watchlist[index];
+  state.watchlist.splice(index, 1);
+  localStorage.setItem('sahamku_pro_watchlist', JSON.stringify(state.watchlist));
+  renderWatchlist();
+  showToast(`${removed.symbol.split(':')[1]} dihapus`, 'success');
+}
+
+// ============ TRADING ============
+function calculateTradeTotal(){
+  const price = parseFloat(document.getElementById('tradePrice').value) || 0;
+  const lot = parseInt(document.getElementById('tradeLot').value) || 1;
+  const total = price * lot * 100;
+  document.getElementById('tradeTotal').textContent = formatIDR(total);
+}
+document.addEventListener('input', (e) => {
+  if(e.target.id === 'tradePrice' || e.target.id === 'tradeLot') calculateTradeTotal();
+});
+
+function executeTrade(type){
+  const symbol = document.getElementById('tradeSymbol').value.toUpperCase();
+  const price = parseFloat(document.getElementById('tradePrice').value);
+  const lot = parseInt(document.getElementById('tradeLot').value);
+  
+  if(!price || price <= 0){showToast('Masukkan harga yang valid', 'error'); return}
+  if(!lot || lot <= 0){showToast('Masukkan lot yang valid', 'error'); return}
+  
+  const total = price * lot * 100;
+  const ex = document.getElementById('exchange').value;
+  const fullSymbol = `${ex}:${symbol}`;
+  
+  if(type === 'buy'){
+    if(total > state.portfolio.cash){
+      showToast('Saldo tidak cukup', 'error'); return;
+    }
+    state.portfolio.cash -= total;
+    let holding = state.portfolio.holdings.find(h => h.symbol === fullSymbol);
+    if(holding){
+      const totalLot = holding.lot + lot;
+      holding.avgPrice = ((holding.avgPrice * holding.lot) + (price * lot)) / totalLot;
+      holding.lot = totalLot;
+    } else {
+      state.portfolio.holdings.push({symbol:fullSymbol, lot, avgPrice:price, lastPrice:price});
+    }
+    showToast(`BELI ${lot} lot ${symbol} @ ${formatIDR(price)}`, 'success');
+  } else {
+    const holding = state.portfolio.holdings.find(h => h.symbol === fullSymbol);
+    if(!holding || holding.lot < lot){
+      showToast('Jumlah lot tidak cukup', 'error'); return;
+    }
+    state.portfolio.cash += total;
+    const pl = (price - holding.avgPrice) * lot * 100;
+    holding.lot -= lot;
+    if(holding.lot === 0){
+      state.portfolio.holdings = state.portfolio.holdings.filter(h => h.symbol !== fullSymbol);
+    }
+    showToast(`JUAL ${lot} lot ${symbol} · P/L: ${formatIDR(pl)}`, pl >= 0 ? 'success' : 'error');
+  }
+  
+  state.portfolio.history.unshift({
+    type, symbol:fullSymbol, price, lot, total,
+    date: new Date().toISOString()
+  });
+  
+  savePortfolio();
+  renderPortfolio();
+  updatePortfolioBadge();
+}
+
+function renderPortfolio(){
+  const stockValue = state.portfolio.holdings.reduce((sum, h) => sum + (h.lastPrice * h.lot * 100), 0);
+  const totalValue = state.portfolio.cash + stockValue;
+  const pl = totalValue - state.portfolio.initialCash;
+  const plPct = (pl / state.portfolio.initialCash * 100).toFixed(2);
+  
+  document.getElementById('portTotal').textContent = formatIDR(totalValue);
+  document.getElementById('portCash').textContent = formatIDR(state.portfolio.cash);
+  document.getElementById('portStock').textContent = formatIDR(stockValue);
+  document.getElementById('portCount').textContent = `${state.portfolio.holdings.length} posisi`;
+  document.getElementById('portPL').textContent = `P/L: ${formatIDR(pl)} (${plPct}%)`;
+  document.getElementById('portPL').className = `port-sub ${pl >= 0 ? 'up' : 'down'}`;
+  document.getElementById('portTrades').textContent = state.portfolio.history.length;
+  
+  const holdingsList = document.getElementById('holdingsList');
+  if(state.portfolio.holdings.length === 0){
+    holdingsList.innerHTML = '<div class="empty-state"><p>Belum ada saham. Mulai trading di tab Chart.</p></div>';
+  } else {
+    holdingsList.innerHTML = state.portfolio.holdings.map(h => {
+      const value = h.lastPrice * h.lot * 100;
+      const pl = (h.lastPrice - h.avgPrice) * h.lot * 100;
+      const plPct = ((h.lastPrice - h.avgPrice) / h.avgPrice * 100).toFixed(2);
+      return `
+        <div class="holding-item">
+          <div>
+            <div class="holding-sym">${h.symbol.split(':')[1]}</div>
+            <div class="holding-info">${h.lot} lot · avg ${formatIDR(h.avgPrice)}</div>
+          </div>
+          <div class="holding-val">${formatIDR(value)}</div>
+          <div class="holding-pl ${pl >= 0 ? 'up' : 'down'}">${pl >= 0 ? '+' : ''}${formatIDR(pl)} (${plPct}%)</div>
+        </div>
+      `;
+    }).join('');
+  }
+  
+  const historyList = document.getElementById('historyList');
+  if(state.portfolio.history.length === 0){
+    historyList.innerHTML = '<div class="empty-state"><p>Belum ada transaksi</p></div>';
+  } else {
+    historyList.innerHTML = state.portfolio.history.slice(0, 10).map(h => `
+      <div class="holding-item">
+        <div>
+          <div class="holding-sym"><span style="color:${h.type === 'buy' ? 'var(--hijau)' : 'var(--merah)'};font-weight:700">${h.type.toUpperCase()}</span> ${h.symbol.split(':')[1]}</div>
+          <div class="holding-info">${h.lot} lot @ ${formatIDR(h.price)} · ${new Date(h.date).toLocaleString('id-ID')}</div>
+        </div>
+        <div class="holding-val" style="grid-column:2/4">${formatIDR(h.total)}</div>
+      </div>
+    `).join('');
+  }
+}
+
+function updatePortfolioBadge(){
+  const stockValue = state.portfolio.holdings.reduce((sum, h) => sum + (h.lastPrice * h.lot * 100), 0);
+  const total = state.portfolio.cash + stockValue;
+  document.getElementById('portfolioValue').textContent = formatIDR(total);
+}
+
+function savePortfolio(){
+  localStorage.setItem('sahamku_pro_portfolio', JSON.stringify(state.portfolio));
+}
+
+function resetPortfolio(){
+  showModal('Reset Portfolio?', 'Semua data trading akan dihapus dan saldo kembali ke Rp 100.000.000', () => {
+    state.portfolio = {cash:100000000, holdings:[], history:[], initialCash:100000000};
+    savePortfolio();
+    renderPortfolio();
+    updatePortfolioBadge();
+    showToast('Portfolio berhasil direset', 'success');
+  });
+}
+
+// ============ ALERTS ============
+function createAlert(){
+  const symbol = document.getElementById('alertSymbol').value.trim().toUpperCase();
+  const condition = document.getElementById('alertCondition').value;
+  const price = parseFloat(document.getElementById('alertPrice').value);
+  
+  if(!symbol){showToast('Masukkan simbol', 'error'); return}
+  if(!price || price <= 0){showToast('Masukkan harga valid', 'error'); return}
+  
+  const ex = document.getElementById('exchange').value;
+  state.alerts.push({
+    id: Date.now(),
+    symbol: `${ex}:${symbol}`,
+    condition,
+    price,
+    triggered: false,
+    created: new Date().toISOString()
+  });
+  localStorage.setItem('sahamku_pro_alerts', JSON.stringify(state.alerts));
+  
+  document.getElementById('alertSymbol').value = '';
+  document.getElementById('alertPrice').value = '';
+  renderAlerts();
+  showToast(`Alert untuk ${symbol} dibuat`, 'success');
+}
+
+function renderAlerts(){
+  const container = document.getElementById('alertsList');
+  if(state.alerts.length === 0){
+    container.innerHTML = '<div class="empty-state"><p>Belum ada alert</p></div>';
+    return;
+  }
+  container.innerHTML = state.alerts.map(a => `
+    <div class="alert-item ${a.triggered ? 'triggered' : ''}">
+      <div class="alert-info">
+        <div class="alert-sym">${a.symbol.split(':')[1]}</div>
+        <div class="alert-cond">${a.condition === 'above' ? 'Di atas' : 'Di bawah'} ${formatIDR(a.price)}</div>
+        ${a.triggered ? '<div class="alert-status">TRIGGERED</div>' : ''}
+      </div>
+      <button class="wl-btn" onclick="deleteAlert(${a.id})" title="Hapus">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
+      </button>
+    </div>
+  `).join('');
+}
+
+function deleteAlert(id){
+  state.alerts = state.alerts.filter(a => a.id !== id);
+  localStorage.setItem('sahamku_pro_alerts', JSON.stringify(state.alerts));
+  renderAlerts();
+}
+
+function checkAlerts(){
+  state.alerts.forEach(a => {
+    if(!a.triggered){
+      if(Math.random() < 0.05){
+        a.triggered = true;
+        showToast(`Alert ${a.symbol.split(':')[1]} terpicu`, 'warn');
+      }
+    }
+  });
+  localStorage.setItem('sahamku_pro_alerts', JSON.stringify(state.alerts));
+  if(document.getElementById('view-alerts').classList.contains('active')){
+    renderAlerts();
+  }
+}
+
+// ============ UTILITIES ============
+function formatIDR(num){
+  return 'Rp ' + Math.round(num).toLocaleString('id-ID');
+}
+
+function showToast(msg, type='info'){
+  const container = document.getElementById('toastContainer');
+  const toast = document.createElement('div');
+  toast.className = `toast ${type}`;
+  toast.innerHTML = `<span>${msg}</span>`;
+  container.appendChild(toast);
+  setTimeout(() => {
+    toast.style.animation = 'slideIn .3s reverse';
+    setTimeout(() => toast.remove(), 300);
+  }, 3500);
+}
+
+function showModal(title, message, onConfirm){
+  document.getElementById('modalTitle').textContent = title;
+  document.getElementById('modalMessage').textContent = message;
+  document.getElementById('confirmModal').classList.add('active');
+  document.getElementById('modalConfirmBtn').onclick = () => {
+    onConfirm();
+    closeModal();
+  };
+}
+function closeModal(){
+  document.getElementById('confirmModal').classList.remove('active');
+}
+
+// ============ KEYBOARD SHORTCUTS ============
+document.addEventListener('keydown', (e) => {
+  if((e.ctrlKey || e.metaKey) && e.key === 'k'){
+    e.preventDefault();
+    document.getElementById('symbolInput').focus();
+    document.getElementById('symbolInput').select();
+  }
+  if(e.key === 'Enter' && document.activeElement.id === 'symbolInput'){
+    loadChart();
+  }
+  if(e.key === 'Enter' && document.activeElement.id === 'addWlInput'){
+    addToWatchlist();
+  }
+  if(e.key === 'Escape'){
+    closeModal();
+  }
+});
+
+// Init
+init();
+</script>
+
+</body>
+</html>
